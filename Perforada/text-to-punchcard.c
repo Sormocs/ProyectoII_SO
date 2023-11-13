@@ -8,18 +8,17 @@
 void addNumber(CharInfo charInfo[], char ch, int number) {
     for (int i = 0; i < MAX_POSITIONS; ++i) {
         if (charInfo[i].character == '\0') {
-            // Initialize character if not already in the array
             charInfo[i].character = ch;
             charInfo[i].numNumbers = 0;
-            charInfo[i].numbers = NULL;  // Initialize the numbers array to NULL
+            charInfo[i].numbers = NULL;
         }
 
-        // Add number for the character
+        // Añadir numero acá
         if (charInfo[i].character == ch && charInfo[i].numNumbers < MAX_POSITIONS) {
             charInfo[i].numbers = (int*)realloc(charInfo[i].numbers, sizeof(int) * (charInfo[i].numNumbers + 1));
             if (charInfo[i].numbers == NULL) {
                 // Handle memory allocation error
-                // You might want to add error handling or exit the program here
+
             }
 
             charInfo[i].numbers[charInfo[i].numNumbers] = number;
@@ -34,25 +33,20 @@ int* getNumbers(CharInfo charInfo[], char ch, int index, int* numNumbers) {
         if (charInfo[i].character == ch) {
             *numNumbers = charInfo[i].numNumbers;
 
-            // Allocate memory for the array of numbers
             int* numbers = (int*)malloc(sizeof(int) * (*numNumbers));
             if (numbers == NULL) {
-                // Handle memory allocation error
                 *numNumbers = 0;
                 return NULL;
             }
 
-            // Copy numbers to the allocated array
             for (int j = 0; j < charInfo[i].numNumbers; ++j) {
                 numbers[j] = charInfo[i].numbers[j];
             }
 
-            // Return the array of numbers
             return numbers;
         }
     }
 
-    // Character not found, return NULL
     *numNumbers = 0;
     return NULL;
 }
@@ -60,10 +54,8 @@ int* getNumbers(CharInfo charInfo[], char ch, int index, int* numNumbers) {
 CharacterNumbers* getCharacterNumbersForWord(CharInfo charInfo1[], CharInfo charInfo2[], const char* word, int index, int* totalCharacters) {
     int wordLength = strlen(word);
 
-    // Select the appropriate CharInfo structure based on the specified index
     CharInfo* selectedCharInfo = (index == 1) ? charInfo1 : charInfo2;
 
-    // Allocate memory for the array of CharacterNumbers
     CharacterNumbers* characterNumbersArray = (CharacterNumbers*)malloc(sizeof(CharacterNumbers) * wordLength);
     if (characterNumbersArray == NULL) {
         // Handle memory allocation error
@@ -73,14 +65,12 @@ CharacterNumbers* getCharacterNumbersForWord(CharInfo charInfo1[], CharInfo char
 
     *totalCharacters = 0;
 
-    // Iterate through each character in the word
     for (int i = 0; i < wordLength; ++i) {
         char currentChar = word[i];
         int numCharNumbers;
         int* charNumbers = getNumbers(selectedCharInfo, currentChar, index, &numCharNumbers);
 
         if (charNumbers != NULL) {
-            // Allocate memory for the array of numbers for the current character
             int* numbers = (int*)malloc(sizeof(int) * numCharNumbers);
             if (numbers == NULL) {
                 // Handle memory allocation error
@@ -88,20 +78,16 @@ CharacterNumbers* getCharacterNumbersForWord(CharInfo charInfo1[], CharInfo char
                 return NULL;
             }
 
-            // Copy numbers for the current character to the allocated array
             for (int j = 0; j < numCharNumbers; ++j) {
                 numbers[j] = charNumbers[j];
             }
 
-            // Store the character and associated numbers in the result array
             characterNumbersArray[*totalCharacters].character = currentChar;
             characterNumbersArray[*totalCharacters].numbers = numbers;
             characterNumbersArray[*totalCharacters].numNumbers = numCharNumbers;
 
-            // Increment the total characters count
             (*totalCharacters)++;
 
-            // Free memory allocated for the numbers of the current character
             free(charNumbers);
         }
     }
@@ -114,17 +100,14 @@ void initializeCharacterNumbers(CharInfo charInfo[], int set) {
         charInfo[i].character = '\0';
         charInfo[i].numNumbers = 0;
 
-        // Allocate memory for the numbers array
         charInfo[i].numbers = (int*)malloc(sizeof(int) * MAX_POSITIONS);
         if (charInfo[i].numbers == NULL) {
             // Handle memory allocation error
-            // You might want to add error handling or exit the program here
         }
     }
 
     switch (set) {
         case 1:
-            // Set 1 assignments
             addNumber(charInfo, '&', 0);
             addNumber(charInfo, '-', 1);
             addNumber(charInfo, '0', 2);
@@ -259,7 +242,6 @@ void initializeCharacterNumbers(CharInfo charInfo[], int set) {
             addNumber(charInfo, '"', 11);
             break;
         case 2:
-            // Set 2 assignments
             addNumber(charInfo, '-', 1);
             addNumber(charInfo, '0', 2);
             addNumber(charInfo, '1', 3);
@@ -338,9 +320,7 @@ void initializeCharacterNumbers(CharInfo charInfo[], int set) {
             addNumber(charInfo, ',', 11);
 
             break;
-            // Add more cases for additional sets as needed
         default:
-            // Handle invalid set
             break;
     }
 }
