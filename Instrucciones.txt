@@ -1,0 +1,26 @@
+Montar directorio:	
+	Master:
+
+	1. sudo gedit /etc/exports
+	2. Agregar:
+		/home/sergio/Desktop/sharedfolder <IPSlave>(rw,sync,no_subtree_check)
+	
+	3. sudo exportfs -a
+	4. sudo systemctl restart nfs-kernel-server
+	5. Revisar estado del firewall:
+		sudo ufw status --> debe de ser inactivo
+	
+	Slave:
+
+	1. sudo mount <serverIP>:/home/sergio/Desktop/sharedfolder /home/curso/Desktop/sharedfolder
+	
+Configurar OpenMPI:
+	Master:
+	
+	1. gedit /etc/hosts
+		
+		Agregar:
+			127.0.0.1 localhost #Esa ya viene colocada, se le coloca lo sigueinte abajo.
+			@curso<slaveIP> slots = 6 slave
+			# Se comenta todo lo demas.
+			
