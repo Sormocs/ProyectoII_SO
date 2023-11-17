@@ -6,9 +6,9 @@
 #define MAX_WORD_LENGTH 100
 
 void divideFile() {
-    const char *inputFileName = "/home/curso/Desktop/sharedfolder/Texto/input.txt";
-    const char *outputFile1 = "/home/curso/Desktop/sharedfolder/Texto/outputA.txt";
-    const char *outputFile2 = "/home/curso/Desktop/sharedfolder/Texto/outputB.txt";
+    const char *inputFileName = "Texto/bible.txt";
+    const char *outputFile1 = "Texto/outputA.txt";
+    const char *outputFile2 = "Texto/outputB.txt";
 
     FILE *inputFile, *outputFileA, *outputFileB;
     char buffer[1024];

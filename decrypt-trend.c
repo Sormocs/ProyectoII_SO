@@ -113,4 +113,5 @@ int main(int argc, char* argv[]) {
   else {
     printf("No trend word found\n");
   }
+  
 }

@@ -110,7 +110,7 @@ void read_data(char *buffer, size_t buffer_size) {
     close(serial_port);
 }
 
-void pipilacha() {
+void pipilacha(char* word) {
 
 	CharInfo charInfo1[MAX_POSITIONS];
 
@@ -129,7 +129,7 @@ void pipilacha() {
 
 	initializeCharacterNumbers(charInfo1, 1);
 	initializeCharacterNumbers(charInfo2, 2);
-	const char* word = "abcdefg";
+	//const char* word = "abcdefg";
 	int totalCharacters;
 	int structureIndex = 1;
 	CharacterNumbers* characterNumbersArray = getCharacterNumbersForWord(charInfo1, charInfo2, word, structureIndex, &totalCharacters);

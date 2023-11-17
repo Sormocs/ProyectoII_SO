@@ -13,6 +13,6 @@ void send_data(const char *message);
 // Function to read data from a serial port into a buffer
 void read_data(char *buffer, size_t buffer_size);
 
-void pipilacha();
+void pipilacha(char* word);
 
 #endif // LIBRARY_H

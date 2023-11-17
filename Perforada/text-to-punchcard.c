@@ -64,6 +64,7 @@ CharacterNumbers* getCharacterNumbersForWord(CharInfo charInfo1[], CharInfo char
     }
 
     *totalCharacters = 0;
+   
 
     for (int i = 0; i < wordLength; ++i) {
         char currentChar = word[i];
