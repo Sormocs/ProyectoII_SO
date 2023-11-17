@@ -77,49 +77,99 @@ bool reading_column = false;
 
 void loop(){
   while(Serial.available() > 0){
-    char character = Serial.read();
-		
-		if(character == 'c'){
-			clear_matrix();
-			continue;
-		}
+    String data = Serial.readString();
 
-		if(character == '('){
-			reading_row = true;
-      continue;
-		}
+    int i = 0;
+    char character;
+    for(int char_index = 0; (character = data[char_index]) != '\0'; char_index++){
+      Serial.println(character);
 
-		if(reading_row){
-			if(character == ','){
-				row[row_index] = '\0';
-				row_index = 0;
-
-				reading_row = false;
-				reading_column = true;
-			} 
-			else{
-				row[row_index] = character;
-				row_index++;
+			if(character == 'c'){
+				clear_matrix();
+				continue;
 			}
 
-      continue;
-		}
-
-		if(reading_column){
-			if(character == ')'){
-				column[column_index] = '\0';
-				column_index = 0;
-
-				reading_column = false;
-
-				Serial.println(atoi(row));
-				Serial.println(atoi(column));
-				turn_on_pixel(atoi(row), atoi(column));
-			} 
-			else {
-				column[column_index] = character;
-				column_index++;
+			if(character == '('){
+				reading_row = true;
+				continue;
 			}
-		} 
+
+			if(reading_row){
+				if(character == ','){
+					row[row_index] = '\0';
+					row_index = 0;
+
+					reading_row = false;
+					reading_column = true;
+				} 
+				else{
+					row[row_index] = character;
+					row_index++;
+				}
+
+				continue;
+			}
+
+			if(reading_column){
+				if(character == ')'){
+					column[column_index] = '\0';
+					column_index = 0;
+
+					reading_column = false;
+
+					Serial.println(atoi(row));
+					Serial.println(atoi(column));
+					turn_on_pixel(atoi(row), atoi(column));
+				} 
+				else {
+					column[column_index] = character;
+					column_index++;
+				}
+			} 
+    }
+
+    //char character = Serial.read();
+		// if(character == 'c'){
+		// 	clear_matrix();
+		// 	continue;
+		// }
+
+		// if(character == '('){
+		// 	reading_row = true;
+    //   continue;
+		// }
+
+		// if(reading_row){
+		// 	if(character == ','){
+		// 		row[row_index] = '\0';
+		// 		row_index = 0;
+
+		// 		reading_row = false;
+		// 		reading_column = true;
+		// 	} 
+		// 	else{
+		// 		row[row_index] = character;
+		// 		row_index++;
+		// 	}
+
+    //   continue;
+		// }
+
+		// if(reading_column){
+		// 	if(character == ')'){
+		// 		column[column_index] = '\0';
+		// 		column_index = 0;
+
+		// 		reading_column = false;
+
+		// 		Serial.println(atoi(row));
+		// 		Serial.println(atoi(column));
+		// 		turn_on_pixel(atoi(row), atoi(column));
+		// 	} 
+		// 	else {
+		// 		column[column_index] = character;
+		// 		column_index++;
+		// 	}
+		// } 
   }
 }
