@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "text-to-punchcard.h"
 
 void addNumber(CharInfo charInfo[], char ch, int number) {
@@ -64,7 +65,7 @@ CharacterNumbers* getCharacterNumbersForWord(CharInfo charInfo1[], CharInfo char
     *totalCharacters = 0;
 
     for (int i = 0; i < wordLength; ++i) {
-        char currentChar = word[i];
+        char currentChar = tolower(word[i]);
         int numCharNumbers;
         int* charNumbers = getNumbers(selectedCharInfo, currentChar, index, &numCharNumbers);
 

@@ -7,8 +7,11 @@
 
 #define MAX_WORD_LENGTH 100
 
+typedef struct {
+    char word[MAX_WORD_LENGTH];
+    int count;
+} WordCount;
 
-void divideFile();
 char* findTrendWord(char* filename);
 
 #endif //TEXT_H
